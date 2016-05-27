@@ -10,9 +10,16 @@ import android.database.sqlite.SQLiteOpenHelper;
  */
 public class ChinaWeatherHelper extends SQLiteOpenHelper {
     /**
+     * province 建表语句
+     */
+    public static final String CREATE_PROVINCE="create table Province(" +
+            "id integer primary key autoincrement," +
+            "province_name text," +
+            "province_code text)";
+    /**
      * City建表语句
      */
-    public static final String CREAT_CITY="creat table city(" +
+    public static final String CREATE_CITY="create table City(" +
             "id integer primary key autoincrement," +
             "city_name text," +
             "city_code text," +
@@ -20,18 +27,11 @@ public class ChinaWeatherHelper extends SQLiteOpenHelper {
     /**
      * County 建表语句
      */
-    public static final String CREAT_COUNTY="creat table province(" +
+    public static final String CREATE_COUNTY="create table County(" +
             "id integer primary key autoincrement," +
             "county_name text," +
             "county_code text," +
             "city_id integer)";
-    /**
-     * province 建表语句
-     */
-    public static final String CREAT_PROVINCE="creat table province(" +
-            "id integer primary key autoincrement," +
-            "province_name text," +
-            "province_code text)";
     public ChinaWeatherHelper(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
         super(context, name, factory, version);
     }
@@ -39,9 +39,9 @@ public class ChinaWeatherHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         //创建三张表
-        db.execSQL(CREAT_PROVINCE);
-        db.execSQL(CREAT_CITY);
-        db.execSQL(CREAT_COUNTY);
+        db.execSQL(CREATE_PROVINCE);
+        db.execSQL(CREATE_CITY);
+        db.execSQL(CREATE_COUNTY);
 
     }
 

@@ -58,7 +58,7 @@ public class ChinaWeatherDb {
         if(cursor.moveToFirst()){
            while(cursor.moveToNext()){
                Province province=new Province();
-               province.setId(cursor.getColumnIndex("id"));
+               province.setId(cursor.getInt(cursor.getColumnIndex("id")));
                province.setProvinceName(cursor.getString(cursor.getColumnIndex("province_name")));
                province.setProvinceCode(cursor.getString(cursor.getColumnIndex("province_code")));
                provinceList.add(province);
@@ -83,11 +83,11 @@ public class ChinaWeatherDb {
      */
     public List<City> loadCity(int provinceId){
         List<City> cityList=new ArrayList<City>();
-        Cursor cursor=db.query("City",null,"provinceId=?",new String[]{String.valueOf(provinceId)},null,null,null);
+        Cursor cursor=db.query("City",null,"province_id=?",new String[]{String.valueOf(provinceId)},null,null,null);
         if(cursor.moveToFirst()){
             while(cursor.moveToNext()){
                 City city=new City();
-                city.setId(cursor.getColumnIndex("id"));
+                city.setId(cursor.getInt(cursor.getColumnIndex("id")));
                 city.setCityName(cursor.getString(cursor.getColumnIndex("city_name")));
                 city.setCityCode(cursor.getString(cursor.getColumnIndex("city_code")));
                 city.setProvinceId(provinceId);
@@ -113,11 +113,11 @@ public class ChinaWeatherDb {
      */
     public List<County> loadCounty(int cityId){
         List<County> countyList=new ArrayList<County>();
-        Cursor cursor=db.query("County",null,"cityId=?",new String[]{String.valueOf(cityId)},null,null,null);
+        Cursor cursor=db.query("County",null,"city_id=?",new String[]{String.valueOf(cityId)},null,null,null);
         if(cursor.moveToFirst()){
             while(cursor.moveToNext()){
                County county=new County();
-                county.setId(cursor.getColumnIndex("id"));
+                county.setId(cursor.getInt(cursor.getColumnIndex("id")));
                 county.setCountyName(cursor.getString(cursor.getColumnIndex("county_name")));
                 county.setCountyCode(cursor.getString(cursor.getColumnIndex("county_code")));
                 county.setCityId(cityId);
