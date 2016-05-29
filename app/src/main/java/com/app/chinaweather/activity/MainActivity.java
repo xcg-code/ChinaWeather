@@ -26,12 +26,13 @@ public class MainActivity extends Activity {
     private Button bt;
     private TextView textView;
     StringBuilder response;
+    String weatherCode;
     Handler handler=new Handler() {
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
             if(msg.what==0x123){
-                textView.setText(response.toString());
+                textView.setText(msg.obj.toString());
             }
         }
     };
@@ -49,7 +50,7 @@ public class MainActivity extends Activity {
                     public void run() {
                         HttpURLConnection connection=null;
                         try {
-                            URL url=new URL("http://www.weather.com.cn/data/list3/city.xml");
+                            URL url=new URL(" http://www.weather.com.cn/data/list3/city040104.xml");
                             connection=(HttpURLConnection) url.openConnection();
                             connection.setRequestMethod("GET");
                             //connection.setRequestProperty("apikey",  "f14d742ae9a295c4cb69cd4c8edb02eb");
@@ -66,8 +67,14 @@ public class MainActivity extends Activity {
                             if(response==null){
                                 Toast.makeText(MainActivity.this,"neirongweikong",Toast.LENGTH_SHORT).show();
                             }
+                            String res=response.toString();
+                            String[] array=res.split("\\|");
+                            if(array!=null&&array.length==2){
+                               weatherCode=array[1];
+                            }
                             Message message=new Message();
                             message.what=0x123;
+                            message.obj=weatherCode;
                             handler.sendMessage(message);
                         } catch (IOException e) {
                             e.printStackTrace();
